@@ -1,17 +1,17 @@
 node{
   def app
 
-    stage('Clone') {
+    stage('Recuperation') {
         checkout scm
     }
 
-    stage('Build image') {
+    stage('Creation de image') {
         app = docker.build("risty/nginx")
     }
 
-    stage('Test image') {
+    stage('Test de image') {
         docker.image('risty/nginx').withRun('-p 80:80') { c ->
-        sh 'docker ps'
+        sh 'docker ps -a'
         sh 'curl localhost'
 	     }
     }
